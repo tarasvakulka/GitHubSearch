@@ -1,0 +1,2 @@
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOAD_REPOSITORIES = 'LOAD_REPOSITORIES';
