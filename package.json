@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "ios": "react-native run-ios --simulator='iPhone 6s'",
-    "android": "react-native run-android"
+    "build-android": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug && cd ../",
+    "android": "npm run build-android && (adb reverse tcp:8081 tcp:8081 || true) && react-native run-android"
   },
   "dependencies": {
     "react": "16.8.3",
