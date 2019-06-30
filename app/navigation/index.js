@@ -22,20 +22,37 @@ export const goToAuth = () => Navigation.setRoot({
 
 export const goToSearch = () => Navigation.setRoot({
     root: {
-        stack: {
+        sideMenu: {
             id: 'App',
-            options: {
-                topBar: {
-                    visible: false
+            left: {
+                component: {
+                    name: 'DrawerNavigationScreen'
                 }
             },
-            children: [
-                {
-                    component: {
-                        name: 'SearchScreen'
-                    }
+            center: {
+                stack: {
+                    id: 'AppStack',
+                    options: {
+                        topBar: {
+                            visible: false
+                        }
+                    },
+                    children: [
+                        {
+                            component: {
+                                id: 'SettingsScree',
+                                name: 'SettingsScreen'
+                            }
+                        },
+                        {
+                            component: {
+                                id: 'SearchScreen',
+                                name: 'SearchScreen'
+                            }
+                        }
+                    ]
                 }
-            ]
+            }
         }
     }
 });

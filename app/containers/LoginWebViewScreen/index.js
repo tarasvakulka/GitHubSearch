@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {
     View,
-    StyleSheet,
-    ActivityIndicator
+    StyleSheet
 } from 'react-native';
+import { Spinner } from 'native-base';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
 import url from 'url';
 
-import { goToSearch } from '../../navigation';
+import MainWrapper from '../../components/MainWrapper';
+
+import { goToSearch, goToAuth } from '../../navigation';
 import { loginUser } from '../../redux/auth/actions';
 import ServerConfig from '../../config/serverConfig';
 import { Metrics } from '../../themes/index';
@@ -20,7 +22,8 @@ class LoginWebViewScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true
+            isLoading: true,
+            loginRequest: false
         };
     }
 
@@ -30,11 +33,16 @@ class LoginWebViewScreen extends Component {
 
     onNavigationStateChange = webViewState => {
         const { url: redirectUrl } = webViewState;
-        const { loginLoader } = this.props.auth;
-        if (!loginLoader && redirectUrl.indexOf('https://github.com/?code') !== -1) {
-            const params = url.parse(redirectUrl, true);
-            this.props.onLogin({ code: params.query.code }).then(response => {
-                goToSearch();
+        if (!this.state.loginRequest && redirectUrl.indexOf('https://github.com/?code') !== -1) {
+            this.setState({ loginRequest: true }, () => {
+                const params = url.parse(redirectUrl, true);
+                this.props.onLogin({ code: params.query.code }).then(response => {
+                    this.setState({ loginRequest: false });
+                    goToSearch();
+                }).catch(() => {
+                    this.setState({ loginRequest: false });
+                    goToAuth();
+                });
             });
         }
     };
@@ -44,19 +52,21 @@ class LoginWebViewScreen extends Component {
         const url = `${ServerConfig.DOMAIN}login/oauth/authorize?client_id=${ServerConfig.CLIENT_ID}`;
 
         return (
-            <View style={styles.container}>
-                <WebView
-                    source={{ uri: url }}
-                    onLoad={this.handleWebViewLoad}
-                    onNavigationStateChange={this.onNavigationStateChange}
-                    style={styles.webViewStyle}
-                />
-                {
-                    isLoading && (
-                        <ActivityIndicator style={styles.activityIndicator} />
-                    )
-                }
-            </View>
+            <MainWrapper>
+                <View style={styles.container}>
+                    <WebView
+                        source={{ uri: url }}
+                        onLoad={this.handleWebViewLoad}
+                        onNavigationStateChange={this.onNavigationStateChange}
+                        style={styles.webViewStyle}
+                    />
+                    {
+                        isLoading && (
+                            <Spinner color='black' style={styles.activityIndicator} />
+                        )
+                    }
+                </View>
+            </MainWrapper>
         );
     }
 

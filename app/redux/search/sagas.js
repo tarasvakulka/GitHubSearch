@@ -1,5 +1,10 @@
 import axios from 'axios/index';
-import {SEARCH_REPOSITORIES_SUCCESS, SEARCH_REPOSITORIES_FAILURE, SEARCH_REPOSITORIES} from '../actionTypes';
+import {
+    SEARCH_REPOSITORIES_SUCCESS,
+    SEARCH_REPOSITORIES_FAILURE,
+    SEARCH_REPOSITORIES,
+    SEARCH_REPOSITORIES_LOAD_MORE
+} from '../actionTypes';
 import { put, takeLatest, call } from 'redux-saga/effects';
 import ServerConfig from "../../config/serverConfig";
 
@@ -8,18 +13,25 @@ function requestRepositories(params) {
         method: 'get',
         url: `${ServerConfig.API_DOMAIN}search/repositories`,
         params: {
-            q: params.query
+            ...params
         }
     }).catch(error => {
-
+        debugger
     });
 }
 
 function* searchRepositoriesWorker(action) {
-    const { payload: { params, resolve, reject } } = action;
+    const { payload: { params, resolve, reject, loadMore } } = action;
+    debugger
     try {
         const response = yield call(requestRepositories, params);
-        yield put({ type: SEARCH_REPOSITORIES_SUCCESS, payload: response.data });
+        debugger
+        if (loadMore){
+            debugger
+            yield put({ type: SEARCH_REPOSITORIES_LOAD_MORE, payload: response.data });
+        } else {
+            yield put({ type: SEARCH_REPOSITORIES_SUCCESS, payload: response.data });
+        }
         yield call(resolve, response);
     } catch (error) {
         yield put({ type: SEARCH_REPOSITORIES_FAILURE, error });

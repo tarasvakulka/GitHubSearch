@@ -5,7 +5,10 @@ import {
     AsyncStorage,
     ActivityIndicator
 } from 'react-native';
+import { Spinner } from 'native-base';
 import { connect } from 'react-redux';
+
+import MainWrapper from '../../components/MainWrapper';
 
 import asyncStorageConfig from '../../config/asyncStorageConfig';
 import { goToAuth, goToSearch } from '../../navigation';
@@ -26,12 +29,11 @@ class RootScreen extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <Text>
-                    {'Root Screen Hi!'}
-                </Text>
-                <ActivityIndicator />
-            </View>
+            <MainWrapper>
+                <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                    <Spinner color='black' />
+                </View>
+            </MainWrapper>
         );
     }
 
