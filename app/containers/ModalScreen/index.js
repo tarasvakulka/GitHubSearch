@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Icon, Button } from 'native-base';
-import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
 import MainWrapper from '../../components/MainWrapper';
@@ -43,13 +42,7 @@ class ModalScreen extends Component {
 
 }
 
-function mapStateToProps(state) {
-    return {
-        auth: state.auth
-    };
-}
-
-export default connect(mapStateToProps)(ModalScreen);
+export default ModalScreen;
 
 const styles = StyleSheet.create({
     container: {

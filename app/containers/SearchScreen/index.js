@@ -4,9 +4,23 @@ import {
     FlatList,
     Keyboard,
     RefreshControl,
-    ActivityIndicator
+    ActivityIndicator,
+    StyleSheet
 } from 'react-native';
-import { Container, Header, Title, Item, Input, Button, Left, Right, Body, Icon, CheckBox, Text } from 'native-base';
+import {
+    Container,
+    Header,
+    Title,
+    Item,
+    Input,
+    Button,
+    Left,
+    Right,
+    Body,
+    Icon,
+    CheckBox,
+    Text
+} from 'native-base';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
@@ -140,20 +154,20 @@ class SearchScreen extends Component {
             <MainWrapper>
                 <Container>
                     <Header>
-                        <Left style={{ flex: 1 }}>
+                        <Left style={styles.headerLeft}>
                             <Button transparent onPress={this.handleSideMenu}>
                                 <Icon name='menu' />
                             </Button>
                         </Left>
-                        <Body style={{ flex: 1, alignItems: 'center' }}>
+                        <Body style={styles.headerBody}>
                             <Title>
                                 RepoFinder
                             </Title>
                         </Body>
-                        <Right style={{ flex: 1 }} />
+                        <Right style={styles.rightHeader} />
                     </Header>
-                    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 10 }}>
-                        <Item rounded style={{ marginTop: 15, marginBottom: 10 }}>
+                    <View style={styles.mainContainer}>
+                        <Item rounded style={styles.inputWrapper}>
                             <Input
                                 placeholder="Repo name..."
                                 onChangeText={this.handleTextTyping}
@@ -166,24 +180,24 @@ class SearchScreen extends Component {
                             >
                                 {
                                     this.props.search.searchLoader
-                                        ? <ActivityIndicator style={{ marginRight: 10 }} />
+                                        ? <ActivityIndicator style={styles.searchButtonLoader} />
                                         : <Icon name='search' />
                                 }
                             </Button>
                         </Item>
-                        <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-                            <View style={{ flexDirection: 'row' }}>
+                        <View style={styles.sortBlock}>
+                            <View style={styles.checkBoxRow}>
                                 <CheckBox
-                                    style={{paddingBottom: 3, marginRight: 20}}
+                                    style={styles.sortCheckBox}
                                     checked={this.state.sort === 'stars'}
                                     color={'black'}
                                     onPress={this.handleSortByStars}
                                 />
                                 <Text>Sort by Stars</Text>
                             </View>
-                            <View style={{ flexDirection: 'row' }}>
+                            <View style={styles.checkBoxRow}>
                                 <CheckBox
-                                    style={{paddingBottom: 3, marginRight: 20}}
+                                    style={styles.sortCheckBox}
                                     checked={this.state.sort === 'forks'}
                                     color={'black'}
                                     onPress={this.handleSortByForks}
@@ -193,7 +207,7 @@ class SearchScreen extends Component {
                         </View>
                         <FlatList
                             ref={flatList => this.flatList = flatList}
-                            style={{ flex: 1, width: '100%' }}
+                            style={styles.flatListStyle}
                             data={this.props.search.repositories}
                             extraData={this.state}
                             onEndReached={this.handleLoadMore}
@@ -228,3 +242,46 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen);
+
+const styles = StyleSheet.create({
+    headerLeft: {
+        flex: 1
+    },
+    headerBody: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    rightHeader: {
+        flex: 1
+    },
+    mainContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10
+    },
+    inputWrapper: {
+        marginTop: 15,
+        marginBottom: 10
+    },
+    searchButtonLoader: {
+        marginRight: 10
+    },
+    sortBlock: {
+        width: '90%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 4
+    },
+    checkBoxRow: {
+        flexDirection: 'row'
+    },
+    sortCheckBox: {
+        paddingBottom: 3,
+        marginRight: 20
+    },
+    flatListStyle: {
+        flex: 1,
+        width: '100%'
+    }
+});

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text } from 'native-base';
 import { Navigation } from 'react-native-navigation';
-import { connect } from 'react-redux';
 
 import MainWrapper from '../../components/MainWrapper';
-
-import { loginUser } from '../../redux/auth/actions';
 
 class LoginScreen extends Component {
 
@@ -22,17 +20,17 @@ class LoginScreen extends Component {
             <MainWrapper>
                 <Container>
                     <Header>
-                        <Left style={{ flex: 1 }} />
-                        <Body style={{ flex: 1, alignItems: 'center' }}>
-                        <Title>
-                            RepoFinder
-                        </Title>
+                        <Left style={styles.headerLeft} />
+                        <Body style={styles.headerBody}>
+                            <Title>
+                                RepoFinder
+                            </Title>
                         </Body>
-                        <Right style={{ flex: 1 }} />
+                        <Right style={styles.headerRight} />
                     </Header>
-                    <Content contentContainerStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Content contentContainerStyle={styles.contentStyle}>
                         <Text>Please authentication via GitHub</Text>
-                        <Button onPress={this.handleNavigate} style={{ alignSelf: 'center', marginTop: 20, marginBottom: 30 }}>
+                        <Button onPress={this.handleNavigate} style={styles.signInButton}>
                             <Text>
                                Sign in
                             </Text>
@@ -45,20 +43,28 @@ class LoginScreen extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    };
-};
+export default LoginScreen;
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogin: (params) => {
-            return new Promise((resolve, reject) => {
-                dispatch(loginUser({params, resolve, reject}))
-            })
-        }
+const styles = StyleSheet.create({
+    headerLeft: {
+        flex: 1
+    },
+    headerBody: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    headerRight: {
+        flex: 1
+    },
+    contentStyle: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    signInButton: {
+        alignSelf: 'center',
+        marginTop: 20,
+        marginBottom: 30
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+});

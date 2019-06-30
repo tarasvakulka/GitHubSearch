@@ -8,11 +8,10 @@ import {
 
 export default DrawerItem = (props) => {
     const { label } = props;
-    const containerStyles = styles.container;
 
     return (
         <TouchableOpacity onPress={props.onPress}>
-            <View style={containerStyles}>
+            <View style={styles.container}>
                 <Text style={styles.label}>
                     {label}
                 </Text>

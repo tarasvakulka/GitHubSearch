@@ -15,8 +15,6 @@ function requestLogin(params) {
             client_secret: ServerConfig.CLIENT_SECRET,
             code: params.code
         }
-    }).catch(error => {
-
     });
 }
 

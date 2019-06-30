@@ -15,19 +15,14 @@ function requestRepositories(params) {
         params: {
             ...params
         }
-    }).catch(error => {
-        debugger
     });
 }
 
 function* searchRepositoriesWorker(action) {
     const { payload: { params, resolve, reject, loadMore } } = action;
-    debugger
     try {
         const response = yield call(requestRepositories, params);
-        debugger
-        if (loadMore){
-            debugger
+        if (loadMore) {
             yield put({ type: SEARCH_REPOSITORIES_LOAD_MORE, payload: response.data });
         } else {
             yield put({ type: SEARCH_REPOSITORIES_SUCCESS, payload: response.data });

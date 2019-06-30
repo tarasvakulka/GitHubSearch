@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Text } from 'native-base';
-import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
 import MainWrapper from '../../components/MainWrapper';
@@ -36,20 +36,20 @@ class SettingsScreen extends Component {
             <MainWrapper>
                 <Container>
                     <Header>
-                        <Left style={{ flex: 1 }}>
+                        <Left style={styles.headerLeft}>
                             <Button transparent onPress={this.handleSideMenu}>
                                 <Icon name='menu' />
                             </Button>
                         </Left>
-                        <Body style={{ flex: 1, alignItems: 'center' }}>
+                        <Body style={styles.headerBody}>
                         <Title>
                             RepoFinder
                         </Title>
                         </Body>
-                        <Right style={{ flex: 1 }} />
+                        <Right style={styles.rightHeader} />
                     </Header>
-                    <Content contentContainerStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                        <Button onPress={this.handleLogout} style={{ alignSelf: 'center' }}>
+                    <Content contentContainerStyle={styles.contentContainer}>
+                        <Button onPress={this.handleLogout} style={styles.buttonLogout}>
                             <Text>
                                 Logout
                             </Text>
@@ -62,16 +62,26 @@ class SettingsScreen extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-    return {
+export default SettingsScreen;
 
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-
+const styles = StyleSheet.create({
+    headerLeft: {
+        flex: 1
+    },
+    headerBody: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    rightHeader: {
+        flex: 1
+    },
+    contentContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonLogout: {
+        alignSelf: 'center'
     }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);
+});

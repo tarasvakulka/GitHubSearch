@@ -3,7 +3,8 @@ import {
     View,
     Text,
     AsyncStorage,
-    ActivityIndicator
+    ActivityIndicator,
+    StyleSheet
 } from 'react-native';
 import { Spinner } from 'native-base';
 import { connect } from 'react-redux';
@@ -30,7 +31,7 @@ class RootScreen extends Component {
     render() {
         return (
             <MainWrapper>
-                <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                <View style={styles.container}>
                     <Spinner color='black' />
                 </View>
             </MainWrapper>
@@ -39,10 +40,12 @@ class RootScreen extends Component {
 
 }
 
-function mapStateToProps(state) {
-    return {
-        auth: state.auth
-    };
-}
+export default connect(null, { setAccessToken })(RootScreen);
 
-export default connect(mapStateToProps, { setAccessToken })(RootScreen);
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+});
