@@ -10,13 +10,17 @@
     "android": "npm run build-android && (adb reverse tcp:8081 tcp:8081 || true) && react-native run-android"
   },
   "dependencies": {
+    "axios": "^0.19.0",
+    "query-string": "^6.8.1",
     "react": "16.8.3",
     "react-native": "0.59.9",
     "react-native-navigation": "^3.0.0-alpha.0",
+    "react-native-webview": "^5.12.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-saga": "^1.0.4",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

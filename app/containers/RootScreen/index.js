@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
     AsyncStorage,
     ActivityIndicator
 } from 'react-native';
-import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 
 import asyncStorageConfig from '../../config/asyncStorageConfig';
 import { goToAuth, goToSearch } from '../../navigation';
+import { setAccessToken } from '../../redux/auth/actions';
 
 class RootScreen extends Component {
 
     componentDidMount() {
         AsyncStorage.getItem(asyncStorageConfig.ACCESS_TOKEN).then(response => {
             if (response) {
+                this.props.setAccessToken(response);
                 goToSearch();
             } else {
                 goToAuth();
@@ -43,4 +43,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(RootScreen);
+export default connect(mapStateToProps, { setAccessToken })(RootScreen);

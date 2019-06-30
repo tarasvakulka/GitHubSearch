@@ -7,19 +7,23 @@ import {
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 
-import { goToSearch } from '../../navigation';
+import { loginUser } from '../../redux/auth/actions';
 
 class LoginScreen extends Component {
 
     handleNavigate = () => {
-        goToSearch();
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'LoginWebViewScreen',
+            }
+        });
     };
 
     render() {
         return (
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
                 <Text>
-                    {'Login Screen Hi! ' + this.props.auth.access_token}
+                    {'Login Screen Hi! '}
                 </Text>
 
                 <TouchableOpacity onPress={this.handleNavigate}>
@@ -33,10 +37,20 @@ class LoginScreen extends Component {
 
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         auth: state.auth
     };
-}
+};
 
-export default connect(mapStateToProps)(LoginScreen);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (params) => {
+            return new Promise((resolve, reject) => {
+                dispatch(loginUser({params, resolve, reject}))
+            })
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
