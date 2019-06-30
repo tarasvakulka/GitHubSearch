@@ -1,8 +1,8 @@
-import { LOAD_REPOSITORIES } from '../actionTypes';
+import { SEARCH_REPOSITORIES } from '../actionTypes';
 
-export function loadRepositories() {
+export function searchRepositories(data) {
     return {
-        type: LOAD_REPOSITORIES,
-        payload: {}
+        type: SEARCH_REPOSITORIES,
+        payload: data
     };
 }

@@ -15,6 +15,8 @@ function requestLogin(params) {
             client_secret: ServerConfig.CLIENT_SECRET,
             code: params.code
         }
+    }).catch(error => {
+
     });
 }
 
@@ -22,14 +24,14 @@ function* loginWorker(action) {
     const { payload: { params, resolve, reject } } = action;
     try {
         const response = yield call(requestLogin, params);
-        if (response.data.indexOf('error') !== -1) throw response;
+        if (response.data.toString().indexOf('error') !== -1) throw response;
         const accessToken = response.data.slice(13, response.data.indexOf('&'));
-        yield put({ type: LOGIN_USER_SUCCESS, payload: response });
+        yield put({ type: LOGIN_USER_SUCCESS, payload: accessToken });
         yield call(AsyncStorage.setItem, asyncStorageConfig.ACCESS_TOKEN, accessToken);
-        yield call(resolve);
+        yield call(resolve, response);
     } catch (error) {
         yield put({ type: LOGIN_USER_FAILURE, error });
-        yield call(reject);
+        yield call(reject, error);
     }
 }
 
