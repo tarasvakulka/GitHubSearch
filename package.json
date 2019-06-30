@@ -7,7 +7,8 @@
     "test": "jest",
     "ios": "react-native run-ios --simulator='iPhone 6s'",
     "build-android": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug && cd ../",
-    "android": "npm run build-android && (adb reverse tcp:8081 tcp:8081 || true) && react-native run-android"
+    "android": "npm run build-android && (adb reverse tcp:8081 tcp:8081 || true) && react-native run-android",
+    "android:build": "cd android && ./gradlew app:assembleRelease"
   },
   "dependencies": {
     "axios": "^0.19.0",
