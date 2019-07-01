@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Image
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { Card, CardItem, Text, Thumbnail, Button, Icon, Left, Body } from 'native-base';
 
 export default RepoItem = (props) => {
@@ -59,6 +60,16 @@ export default RepoItem = (props) => {
     );
 }
 
+RepoItem.propTypes = {
+    name: PropTypes.string,
+    description: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    forksCount: PropTypes.number,
+    starsCount: PropTypes.number,
+    handleShowWebViewModal: PropTypes.func,
+    repoUrl: PropTypes.string
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 0
@@ -75,3 +86,4 @@ const styles = StyleSheet.create({
         color: '#87838B'
     }
 });
+

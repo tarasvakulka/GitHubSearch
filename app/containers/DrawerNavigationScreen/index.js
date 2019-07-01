@@ -6,7 +6,6 @@ import {
     ActivityIndicator,
     StyleSheet
 } from 'react-native';
-import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
 import DrawerItem from '../../components/DrawerItem';
@@ -50,13 +49,7 @@ class DrawerNavigationScreen extends Component {
 
 }
 
-function mapStateToProps(state) {
-    return {
-        auth: state.auth
-    };
-}
-
-export default connect(mapStateToProps)(DrawerNavigationScreen);
+export default DrawerNavigationScreen;
 
 const styles = StyleSheet.create({
     container: {

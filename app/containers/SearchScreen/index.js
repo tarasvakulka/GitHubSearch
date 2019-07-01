@@ -21,6 +21,7 @@ import {
     CheckBox,
     Text
 } from 'native-base';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
@@ -242,6 +243,12 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen);
+
+SearchScreen.propTypes = {
+    onSearch: PropTypes.func,
+    clearSearchRepositories: PropTypes.func,
+    search: PropTypes.object
+};
 
 const styles = StyleSheet.create({
     headerLeft: {

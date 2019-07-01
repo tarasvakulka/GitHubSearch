@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 export default DrawerItem = (props) => {
     const { label } = props;
@@ -19,6 +20,10 @@ export default DrawerItem = (props) => {
         </TouchableOpacity>
     );
 }
+
+DrawerItem.propTypes = {
+    label: PropTypes.string
+};
 
 const styles = StyleSheet.create({
     container: {

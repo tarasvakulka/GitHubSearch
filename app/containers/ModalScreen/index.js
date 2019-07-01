@@ -6,6 +6,7 @@ import {
     ActivityIndicator,
     StyleSheet
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { WebView } from 'react-native-webview';
 import { Icon, Button } from 'native-base';
 import { Navigation } from 'react-native-navigation';
@@ -43,6 +44,10 @@ class ModalScreen extends Component {
 }
 
 export default ModalScreen;
+
+ModalScreen.propTypes = {
+    url: PropTypes.string
+};
 
 const styles = StyleSheet.create({
     container: {

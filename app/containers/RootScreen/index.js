@@ -6,6 +6,7 @@ import {
     ActivityIndicator,
     StyleSheet
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { Spinner } from 'native-base';
 import { connect } from 'react-redux';
 
@@ -41,6 +42,10 @@ class RootScreen extends Component {
 }
 
 export default connect(null, { setAccessToken })(RootScreen);
+
+RootScreen.propTypes = {
+    setAccessToken: PropTypes.func
+};
 
 const styles = StyleSheet.create({
     container: {

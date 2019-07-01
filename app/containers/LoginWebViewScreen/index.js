@@ -3,6 +3,7 @@ import {
     View,
     StyleSheet
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { Spinner } from 'native-base';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
@@ -72,12 +73,6 @@ class LoginWebViewScreen extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    };
-};
-
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (params) => {
@@ -88,7 +83,11 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginWebViewScreen);
+export default connect(null, mapDispatchToProps)(LoginWebViewScreen);
+
+LoginWebViewScreen.propTypes = {
+    onLogin: PropTypes.func
+};
 
 const styles = StyleSheet.create({
     container: {
